@@ -125,7 +125,7 @@ for i in public_key_t:
 ciphertext_v=add_matrices(message_vector,add_matrices(error_vector_2,matrix_multiply(randomizer_vector,np.transpose(temporary_public_key_t,(1,0,2)))))
 ciphertext_v=poly_mod_func(ciphertext_v)
 
-
+# Decrypt Message
 noisy_message = ciphertext_v - matrix_multiply(ciphertext_u,np.transpose(private_key_s,(1,0,2)))
 
 
