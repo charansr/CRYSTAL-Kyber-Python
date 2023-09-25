@@ -73,8 +73,9 @@ def closest_to_number(number):
         return modulo_multiplier
 # Message vector
 original_message=[]
+print("Input a binary value: ")
 for i in range(4):
-    val = int(input("Type a number: "))
+    val = int(input("Type a 1 or 0: "))
     original_message+=[val]
 message_vector=np.array([[np.poly1d(original_message)]])
 
