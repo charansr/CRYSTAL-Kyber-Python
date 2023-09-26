@@ -1,7 +1,6 @@
 import random
 import numpy as np
 
-# Random Coefficient Generator
 def gen_random_coeffs(min_value = -10, max_value = 10, list_length = 4):
     random_integers = [random.randint(min_value, max_value) for _ in range(list_length)]
     return random_integers
@@ -73,9 +72,8 @@ def closest_to_number(number):
         return modulo_multiplier
 # Message vector
 original_message=[]
-print("Input a binary value: ")
 for i in range(4):
-    val = int(input("Type a 1 or 0: "))
+    val = int(input("Type a number: "))
     original_message+=[val]
 message_vector=np.array([[np.poly1d(original_message)]])
 
@@ -84,10 +82,10 @@ modulo_val_q = 17
 modulo_poly_f = np.poly1d([1,0,0,0,1])
 
 # Private Key
-private_key_s = np.array([[np.poly1d([1]+gen_random_coeffs(min_value=-1,max_value=1,list_length=2)),np.poly1d([1]+gen_random_coeffs(min_value=-1,max_value=1,list_length=2))]])
+private_key_s = np.array([[np.poly1d([-1,-1,1,0]),np.poly1d([-1,0,-1,0])]])
 
 # Public Keys
-public_key_A = np.array([[np.poly1d([1]+gen_random_coeffs(list_length=3)),np.poly1d([1]+gen_random_coeffs(list_length=3))],[np.poly1d([1]+gen_random_coeffs(list_length=3)),np.poly1d([1]+gen_random_coeffs(list_length=3))]])
+public_key_A = np.array([[np.poly1d([6,16,16,11]),np.poly1d([9,4,6,3])],[np.poly1d([5,3,10,1]),np.poly1d([6,1,9,15])]])
 
 # Error Vector for calculation of second public key(t)
 error_vector = np.array([[np.poly1d([0.0,1,0,0]),np.poly1d([0.0,1,-1,0])]])
@@ -126,7 +124,7 @@ for i in public_key_t:
 ciphertext_v=add_matrices(message_vector,add_matrices(error_vector_2,matrix_multiply(randomizer_vector,np.transpose(temporary_public_key_t,(1,0,2)))))
 ciphertext_v=poly_mod_func(ciphertext_v)
 
-# Decrypt Message
+
 noisy_message = ciphertext_v - matrix_multiply(ciphertext_u,np.transpose(private_key_s,(1,0,2)))
 
 
